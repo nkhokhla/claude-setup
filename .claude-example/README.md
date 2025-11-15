@@ -411,6 +411,356 @@ jupyter nbconvert --clear-output --inplace notebooks/*.ipynb
 
 ---
 
+## 🎮 Try It Out: Interactive Examples
+
+Want to experience Claude Code's automation in action? Here are specific prompts and scenarios to try in this example project.
+
+### 1. **Skill Auto-Activation**
+
+The `project-guidelines` skill activates automatically when you work on Python code. Try these prompts:
+
+**Example Prompts**:
+```
+"Add a new function to calculate the median of a pandas Series"
+→ Skill activates with Python/pandas best practices
+
+"How should I structure tests for the visualization module?"
+→ Skill activates with pytest guidance
+
+"I want to create a notebook for customer segmentation analysis"
+→ Skill activates with Jupyter best practices
+
+"What's the best way to handle missing data in pandas?"
+→ Skill activates with data cleaning patterns
+```
+
+**How to verify**: Look for the skill activation message before Claude responds.
+
+---
+
+### 2. **Use the Strategic Plan Architect**
+
+Create comprehensive implementation plans for new features.
+
+**Example Scenario**: Plan a new time-series analysis feature
+
+**Prompt**:
+```
+Use the Task tool to launch the strategic-plan-architect agent.
+
+Create a plan for adding time-series analysis capabilities to this project:
+- Load time-series data from CSV
+- Resample and aggregate time series
+- Detect trends and seasonality
+- Create time-series visualizations
+- Export results to notebooks
+
+The plan should include implementation phases, acceptance criteria, and risks.
+```
+
+**What happens**:
+1. Agent analyzes current codebase
+2. Creates `.claude/dev/active/time-series-analysis/` directory
+3. Generates three files:
+   - `time-series-analysis-plan.md`: Comprehensive implementation plan
+   - `time-series-analysis-context.md`: Key decisions and files
+   - `time-series-analysis-tasks.md`: Checklist to track progress
+
+**Try it**: Follow the checklist to implement the feature step by step!
+
+---
+
+### 3. **Code Architecture Review**
+
+Get expert feedback on your code quality and design.
+
+**Example Scenario**: Review the data module
+
+**Prompt**:
+```
+Use the Task tool to launch the code-architecture-reviewer agent.
+
+Review the data.py module for:
+- Code quality and type safety
+- Error handling completeness
+- Docstring quality
+- Test coverage adequacy
+- Adherence to Python best practices
+
+Save the review to the project-setup task directory.
+```
+
+**What happens**:
+1. Agent examines `src/analysis/data.py` and tests
+2. Checks type hints, error handling, docstrings
+3. Reviews against project guidelines
+4. Saves review to `.claude/dev/active/project-setup/project-setup-code-review.md`
+5. Provides categorized feedback (critical, important, minor)
+
+**Try it**: Review the suggestions and implement improvements!
+
+---
+
+### 4. **Documentation Generation**
+
+Automatically create comprehensive documentation.
+
+**Example Scenario**: Document the visualization module
+
+**Prompt**:
+```
+Use the Task tool to launch the documentation-architect agent.
+
+Create comprehensive documentation for the visualization module (src/analysis/viz.py):
+- API documentation with examples
+- Usage guide for common plots
+- Customization options
+- Gallery of example outputs
+
+Save the documentation to docs/visualization.md
+```
+
+**What happens**:
+1. Agent analyzes `viz.py` functions and signatures
+2. Gathers context from existing code
+3. Creates `docs/visualization.md` with:
+   - API reference for each function
+   - Code examples
+   - Parameter documentation
+   - Visual examples (if applicable)
+
+**Try it**: Use the generated docs as a template for other modules!
+
+---
+
+### 5. **Dev-Docs for Task Persistence**
+
+Create persistent task documentation that survives context resets.
+
+**Example Scenario**: Start a customer churn prediction feature
+
+**Prompt**:
+```
+I want to implement customer churn prediction. Use /dev-docs to create task documentation.
+
+The feature should:
+- Load customer data with transaction history
+- Engineer features (recency, frequency, monetary value)
+- Train a logistic regression model
+- Evaluate model performance
+- Create visualization of feature importance
+```
+
+**What happens**:
+1. Creates `.claude/dev/active/customer-churn-prediction/`
+2. Generates:
+   - `customer-churn-prediction-plan.md`: Full implementation plan
+   - `customer-churn-prediction-context.md`: Key decisions
+   - `customer-churn-prediction-tasks.md`: Checklist
+
+**Try it**: Start implementing, then run `/dev-docs-update` before context limits!
+
+---
+
+### 6. **Experience Hook Automation**
+
+See how hooks track your work and suggest quality checks.
+
+**Example Scenario**: Add a new utility function
+
+**Steps**:
+1. Create a new file `src/analysis/stats.py`:
+   ```python
+   """Statistical analysis utilities."""
+
+   import pandas as pd
+   from typing import Dict
+
+   def calculate_summary(df: pd.DataFrame) -> Dict[str, float]:
+       """Calculate summary statistics for numeric columns.
+
+       Args:
+           df: DataFrame to analyze
+
+       Returns:
+           Dictionary with mean, median, std for each column
+       """
+       return {
+           'mean': df.mean().to_dict(),
+           'median': df.median().to_dict(),
+           'std': df.std().to_dict()
+       }
+   ```
+
+2. The `post-tool-use-tracker` hook runs automatically and logs:
+   - File edited: `src/analysis/stats.py`
+   - Suggests running: `uv run mypy src/`
+   - Suggests running: `uv run ruff check .`
+   - Suggests running: `uv run pytest`
+
+**Try it**: Check `.claude/cache/<session-id>/commands.txt` to see tracked commands!
+
+---
+
+### 7. **Build a Complete Feature End-to-End**
+
+Put it all together: plan → implement → test → review → document.
+
+**Example Scenario**: Add data validation functionality
+
+**Step 1: Plan** (5 minutes)
+```
+Use the strategic-plan-architect agent to create a plan for adding data validation:
+- Validate CSV schemas (column names, types)
+- Check for required columns
+- Validate value ranges
+- Handle validation errors gracefully
+```
+
+**Step 2: Implement** (30 minutes)
+```
+Create src/analysis/validation.py with:
+- validate_schema() function
+- check_required_columns() function
+- validate_ranges() function
+Add type hints and docstrings
+```
+
+**Step 3: Test** (15 minutes)
+```
+Create tests/test_validation.py with:
+- Test valid data passes
+- Test missing columns are caught
+- Test invalid types are caught
+- Test range violations are caught
+```
+
+**Step 4: Review** (10 minutes)
+```
+Use the code-architecture-reviewer agent to review validation.py.
+Address any critical or important feedback.
+```
+
+**Step 5: Document** (10 minutes)
+```
+Use the documentation-architect agent to create docs/validation.md
+```
+
+**Step 6: Quality Check** (5 minutes)
+```bash
+uv run mypy src/
+uv run ruff check .
+uv run pytest --cov=src
+```
+
+**Step 7: Commit**
+```bash
+git add .
+git commit -m "feat(validation): add CSV schema validation"
+```
+
+**Total time**: ~75 minutes for a production-ready feature with tests and docs!
+
+---
+
+### 8. **Trigger Skill Activation with Keywords**
+
+Test skill activation rules by using Python-specific keywords.
+
+**Try these prompts**:
+
+**Data-related**:
+```
+"How do I load a parquet file with pandas?"
+"What's the best way to handle duplicate rows in a DataFrame?"
+"Show me how to merge two datasets on a common key"
+```
+
+**Testing**:
+```
+"Write pytest tests for a function that processes time series data"
+"How do I mock pandas read_csv in my tests?"
+"What fixtures should I create for testing visualization functions?"
+```
+
+**Type hints**:
+```
+"Add proper type hints to a function that returns a tuple of DataFrames"
+"How do I annotate a function that takes variable keyword arguments?"
+```
+
+**Jupyter**:
+```
+"What's the recommended way to organize a data exploration notebook?"
+"Should I commit notebook outputs to git?"
+"How do I convert a notebook to a Python script?"
+```
+
+Each prompt should trigger the `project-guidelines` skill with relevant guidance!
+
+---
+
+### 9. **Test File Pattern Triggers**
+
+Skills activate based on file patterns too. Try editing these files:
+
+**Edit a Python module**:
+```
+Edit src/analysis/data.py
+→ Skill activates with Python best practices
+```
+
+**Edit a test file**:
+```
+Edit tests/test_data.py
+→ Skill activates with pytest guidance
+```
+
+**Edit a Jupyter notebook**:
+```
+Edit notebooks/01_example_analysis.ipynb
+→ Skill activates with notebook hygiene tips
+```
+
+**Edit pyproject.toml**:
+```
+Edit pyproject.toml
+→ Skill activates with dependency management guidance
+```
+
+---
+
+### 10. **Progressive Disclosure: Dive Deeper**
+
+The skill uses progressive disclosure - main guidance is ~500 lines, with detailed resources.
+
+**Try exploring resources**:
+
+**In your prompts, reference**:
+```
+"Check the testing.md resource for pytest patterns"
+"What does structure.md say about organizing Python modules?"
+"Show me the security.md guidelines for handling API keys in Python"
+```
+
+The skill will use those resource files to provide deeper guidance!
+
+---
+
+## 🎯 Success Indicators
+
+You'll know the setup is working when:
+
+- ✅ Skills activate automatically with relevant keywords
+- ✅ Hooks suggest quality checks after editing Python files
+- ✅ Agents create structured plans and reviews
+- ✅ `/dev-docs` creates persistent task documentation
+- ✅ Code follows Python best practices (type hints, docstrings)
+- ✅ Tests pass with good coverage
+- ✅ Quality checks (mypy, ruff, pytest) pass
+
+---
+
 ## Resources
 
 - **uv Documentation**: https://docs.astral.sh/uv/
