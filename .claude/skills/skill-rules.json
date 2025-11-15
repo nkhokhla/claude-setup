@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "description": "Skill activation triggers for Claude Code. Controls when skills automatically suggest or block actions.",
+  "skills": {
+    "project-guidelines": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Generic project development guidelines covering structure, coding standards, testing, deployment, and best practices",
+      "promptTriggers": {
+        "keywords": [
+          "plan",
+          "architecture",
+          "guidelines",
+          "release",
+          "testing",
+          "docs",
+          "documentation",
+          "deploy",
+          "deployment",
+          "refactor",
+          "implement",
+          "feature",
+          "best practice",
+          "code review",
+          "standards",
+          "conventions"
+        ],
+        "intentPatterns": [
+          "(create|add|implement|build).*?(feature|component|module|service)",
+          "(how to|best practice).*?(structure|organize|test|deploy)",
+          "(plan|design|architect).*?(feature|system|refactor)",
+          "(write|update|create).*?(documentation|docs|readme)",
+          "(setup|configure).*?(ci|cd|pipeline|deployment)"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "src/**/*",
+          "docs/**/*",
+          ".claude/commands/**/*",
+          ".claude/agents/**/*",
+          ".claude/skills/**/*"
+        ],
+        "pathExclusions": [
+          "**/*.test.*",
+          "**/*.spec.*",
+          "**/node_modules/**",
+          "**/__pycache__/**",
+          "**/venv/**",
+          "**/target/**",
+          "**/build/**",
+          "**/dist/**"
+        ],
+        "contentPatterns": []
+      }
+    }
+  },
+  "notes": {
+    "enforcement_types": {
+      "suggest": "Skill suggestion appears but doesn't block execution",
+      "block": "Requires skill to be used before proceeding (guardrail)",
+      "warn": "Shows warning but allows proceeding"
+    },
+    "priority_levels": {
+      "critical": "Highest - Always trigger when matched",
+      "high": "Important - Trigger for most matches",
+      "medium": "Moderate - Trigger for clear matches",
+      "low": "Optional - Trigger only for explicit matches"
+    },
+    "customization": {
+      "pathPatterns": "Adjust to match your project structure once you know your tech stack",
+      "keywords": "Add domain-specific terms relevant to your project (e.g., 'database', 'API', 'frontend')",
+      "intentPatterns": "Use regex for flexible user intent matching",
+      "contentPatterns": "Add patterns to trigger on specific code (e.g., 'import React', 'prisma.', 'router.')"
+    }
+  }
+}
