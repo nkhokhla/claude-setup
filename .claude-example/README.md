@@ -411,353 +411,374 @@ jupyter nbconvert --clear-output --inplace notebooks/*.ipynb
 
 ---
 
-## 🎮 Try It Out: Interactive Examples
+## 🎮 Try It Out: Build a Complete Feature
 
-Want to experience Claude Code's automation in action? Here are specific prompts and scenarios to try in this example project.
+Follow this walkthrough to build a **customer segmentation** feature from planning to PR-ready. Each step builds on the previous one, demonstrating Claude Code's automation in a realistic development workflow.
 
-### 1. **Skill Auto-Activation**
-
-The `project-guidelines` skill activates automatically when you work on Python code. Try these prompts:
-
-**Example Prompts**:
-```
-"Add a new function to calculate the median of a pandas Series"
-→ Skill activates with Python/pandas best practices
-
-"How should I structure tests for the visualization module?"
-→ Skill activates with pytest guidance
-
-"I want to create a notebook for customer segmentation analysis"
-→ Skill activates with Jupyter best practices
-
-"What's the best way to handle missing data in pandas?"
-→ Skill activates with data cleaning patterns
-```
-
-**How to verify**: Look for the skill activation message before Claude responds.
+**Time**: ~90 minutes | **Result**: Production-ready feature with tests, docs, and quality checks
 
 ---
 
-### 2. **Use the Strategic Plan Architect**
+### Step 1: Initial Planning (5 min)
 
-Create comprehensive implementation plans for new features.
+**What you'll do**: Create a strategic plan for the feature
 
-**Example Scenario**: Plan a new time-series analysis feature
-
-**Prompt**:
+**Prompt to use** (copy-paste this):
 ```
-Use the Task tool to launch the strategic-plan-architect agent.
-
-Create a plan for adding time-series analysis capabilities to this project:
-- Load time-series data from CSV
-- Resample and aggregate time series
-- Detect trends and seasonality
-- Create time-series visualizations
-- Export results to notebooks
-
-The plan should include implementation phases, acceptance criteria, and risks.
-```
-
-**What happens**:
-1. Agent analyzes current codebase
-2. Creates `.claude/dev/active/time-series-analysis/` directory
-3. Generates three files:
-   - `time-series-analysis-plan.md`: Comprehensive implementation plan
-   - `time-series-analysis-context.md`: Key decisions and files
-   - `time-series-analysis-tasks.md`: Checklist to track progress
-
-**Try it**: Follow the checklist to implement the feature step by step!
-
----
-
-### 3. **Code Architecture Review**
-
-Get expert feedback on your code quality and design.
-
-**Example Scenario**: Review the data module
-
-**Prompt**:
-```
-Use the Task tool to launch the code-architecture-reviewer agent.
-
-Review the data.py module for:
-- Code quality and type safety
-- Error handling completeness
-- Docstring quality
-- Test coverage adequacy
-- Adherence to Python best practices
-
-Save the review to the project-setup task directory.
-```
-
-**What happens**:
-1. Agent examines `src/analysis/data.py` and tests
-2. Checks type hints, error handling, docstrings
-3. Reviews against project guidelines
-4. Saves review to `.claude/dev/active/project-setup/project-setup-code-review.md`
-5. Provides categorized feedback (critical, important, minor)
-
-**Try it**: Review the suggestions and implement improvements!
-
----
-
-### 4. **Documentation Generation**
-
-Automatically create comprehensive documentation.
-
-**Example Scenario**: Document the visualization module
-
-**Prompt**:
-```
-Use the Task tool to launch the documentation-architect agent.
-
-Create comprehensive documentation for the visualization module (src/analysis/viz.py):
-- API documentation with examples
-- Usage guide for common plots
-- Customization options
-- Gallery of example outputs
-
-Save the documentation to docs/visualization.md
-```
-
-**What happens**:
-1. Agent analyzes `viz.py` functions and signatures
-2. Gathers context from existing code
-3. Creates `docs/visualization.md` with:
-   - API reference for each function
-   - Code examples
-   - Parameter documentation
-   - Visual examples (if applicable)
-
-**Try it**: Use the generated docs as a template for other modules!
-
----
-
-### 5. **Dev-Docs for Task Persistence**
-
-Create persistent task documentation that survives context resets.
-
-**Example Scenario**: Start a customer churn prediction feature
-
-**Prompt**:
-```
-I want to implement customer churn prediction. Use /dev-docs to create task documentation.
+I want to add customer segmentation analysis to this project. Create a comprehensive plan.
 
 The feature should:
-- Load customer data with transaction history
-- Engineer features (recency, frequency, monetary value)
-- Train a logistic regression model
-- Evaluate model performance
-- Create visualization of feature importance
+- Load customer data from CSV (customer_id, purchase_amount, purchase_date, category)
+- Calculate RFM metrics (Recency, Frequency, Monetary value)
+- Segment customers into groups (High Value, Regular, At Risk, Lost)
+- Create visualizations showing segment distributions
+- Export results to a notebook for exploration
+
+Create the plan using the strategic-plan-architect pattern: analyze current code, design the solution, break into phases with acceptance criteria, identify risks.
 ```
 
 **What happens**:
-1. Creates `.claude/dev/active/customer-churn-prediction/`
-2. Generates:
-   - `customer-churn-prediction-plan.md`: Full implementation plan
-   - `customer-churn-prediction-context.md`: Key decisions
-   - `customer-churn-prediction-tasks.md`: Checklist
+- Claude Code automatically activates the `project-guidelines` skill (you'll see a message)
+- Creates `.claude/dev/active/customer-segmentation/` directory
+- Generates three files:
+  - `customer-segmentation-plan.md` - Full implementation plan with phases
+  - `customer-segmentation-context.md` - Key decisions and integration points
+  - `customer-segmentation-tasks.md` - Checklist to track progress
 
-**Try it**: Start implementing, then run `/dev-docs-update` before context limits!
-
----
-
-### 6. **Experience Hook Automation**
-
-See how hooks track your work and suggest quality checks.
-
-**Example Scenario**: Add a new utility function
-
-**Steps**:
-1. Create a new file `src/analysis/stats.py`:
-   ```python
-   """Statistical analysis utilities."""
-
-   import pandas as pd
-   from typing import Dict
-
-   def calculate_summary(df: pd.DataFrame) -> Dict[str, float]:
-       """Calculate summary statistics for numeric columns.
-
-       Args:
-           df: DataFrame to analyze
-
-       Returns:
-           Dictionary with mean, median, std for each column
-       """
-       return {
-           'mean': df.mean().to_dict(),
-           'median': df.median().to_dict(),
-           'std': df.std().to_dict()
-       }
-   ```
-
-2. The `post-tool-use-tracker` hook runs automatically and logs:
-   - File edited: `src/analysis/stats.py`
-   - Suggests running: `uv run mypy src/`
-   - Suggests running: `uv run ruff check .`
-   - Suggests running: `uv run pytest`
-
-**Try it**: Check `.claude/cache/<session-id>/commands.txt` to see tracked commands!
+**Verify**: Check that `.claude/dev/active/customer-segmentation/` exists with 3 markdown files
 
 ---
 
-### 7. **Build a Complete Feature End-to-End**
+### Step 2: Implement Core Module (25 min)
 
-Put it all together: plan → implement → test → review → document.
+**What you'll do**: Create the segmentation logic in `src/analysis/segmentation.py`
 
-**Example Scenario**: Add data validation functionality
-
-**Step 1: Plan** (5 minutes)
+**Prompt to use**:
 ```
-Use the strategic-plan-architect agent to create a plan for adding data validation:
-- Validate CSV schemas (column names, types)
-- Check for required columns
-- Validate value ranges
-- Handle validation errors gracefully
-```
+Following the plan in .claude/dev/active/customer-segmentation/, implement the core segmentation module.
 
-**Step 2: Implement** (30 minutes)
-```
-Create src/analysis/validation.py with:
-- validate_schema() function
-- check_required_columns() function
-- validate_ranges() function
-Add type hints and docstrings
+Create src/analysis/segmentation.py with:
+- calculate_rfm() function: takes DataFrame with customer_id, purchase_amount, purchase_date, returns RFM scores
+- segment_customers() function: takes RFM DataFrame, returns segments (High Value, Regular, At Risk, Lost)
+- get_segment_summary() function: returns statistics per segment
+
+Use type hints, Google-style docstrings, and handle edge cases (empty data, missing columns).
 ```
 
-**Step 3: Test** (15 minutes)
+**What happens**:
+- Skill activates with Python best practices
+- Claude creates `src/analysis/segmentation.py` with proper type hints
+- Post-tool-use hook tracks the edit and notes commands to run later
+
+**Verify**: File exists at `src/analysis/segmentation.py` with type hints and docstrings
+
+---
+
+### Step 3: Add Visualization Support (15 min)
+
+**What you'll do**: Extend viz.py with segmentation-specific plots
+
+**Prompt to use**:
 ```
-Create tests/test_validation.py with:
-- Test valid data passes
-- Test missing columns are caught
-- Test invalid types are caught
-- Test range violations are caught
+Add two visualization functions to src/analysis/viz.py for customer segmentation:
+
+1. plot_segment_distribution(segments_df, title) - bar chart showing count per segment
+2. plot_rfm_scatter(rfm_df, segments_df) - 3D scatter of RFM scores colored by segment
+
+Follow the existing patterns in viz.py (return Figure, use seaborn/matplotlib, add docstrings).
 ```
 
-**Step 4: Review** (10 minutes)
+**What happens**:
+- Skill activates (editing existing Python file)
+- Claude adds functions matching existing code style
+- Hook tracks the edit
+
+**Verify**: Two new functions in `src/analysis/viz.py`
+
+---
+
+### Step 4: Write Tests (20 min)
+
+**What you'll do**: Create comprehensive pytest tests
+
+**Prompt to use**:
 ```
-Use the code-architecture-reviewer agent to review validation.py.
-Address any critical or important feedback.
+Create tests/test_segmentation.py with pytest tests for the segmentation module.
+
+Test cases:
+- test_calculate_rfm_valid_data() - RFM calculation with sample data
+- test_calculate_rfm_empty_data() - handle empty DataFrame
+- test_segment_customers_distribution() - verify segments are assigned correctly
+- test_segment_customers_edge_cases() - single customer, all same values
+- test_get_segment_summary_structure() - verify summary has expected keys
+
+Use fixtures for sample customer data. Aim for 80%+ coverage.
 ```
 
-**Step 5: Document** (10 minutes)
+**What happens**:
+- Skill activates with pytest guidance
+- Claude creates `tests/test_segmentation.py` with fixtures
+- Hook suggests running `uv run pytest`
+
+**Verify**: Tests file exists and you can run `uv run pytest tests/test_segmentation.py`
+
+---
+
+### Step 5: Create Exploration Notebook (15 min)
+
+**What you'll do**: Build a Jupyter notebook demonstrating the feature
+
+**Prompt to use**:
 ```
-Use the documentation-architect agent to create docs/validation.md
+Create notebooks/02_customer_segmentation.ipynb demonstrating the customer segmentation feature.
+
+Structure:
+1. Setup: import from analysis.segmentation and analysis.viz
+2. Load sample data: generate synthetic customer transactions
+3. Calculate RFM: use calculate_rfm()
+4. Segment: use segment_customers()
+5. Visualize: use plot_segment_distribution() and plot_rfm_scatter()
+6. Summary: use get_segment_summary() and interpret results
+
+Add markdown cells explaining each step. Clear outputs before saving.
 ```
 
-**Step 6: Quality Check** (5 minutes)
+**What happens**:
+- Skill activates with Jupyter best practices
+- Claude creates working notebook with markdown explanations
+- Hook reminds you to clear outputs before committing
+
+**Verify**: Notebook at `notebooks/02_customer_segmentation.ipynb`, run it with `uv run jupyter lab`
+
+---
+
+### Step 6: Quality Checks (10 min)
+
+**What you'll do**: Run all quality tools and fix any issues
+
+**Commands to run**:
 ```bash
+# Type checking
+uv run mypy src/analysis/segmentation.py
+
+# Linting
+uv run ruff check src/analysis/segmentation.py tests/test_segmentation.py
+
+# Formatting
+uv run ruff format src/ tests/
+
+# Tests with coverage
+uv run pytest tests/test_segmentation.py --cov=src/analysis/segmentation --cov-report=term-missing
+```
+
+**If there are issues**, ask Claude:
+```
+Fix the mypy errors in src/analysis/segmentation.py
+```
+or
+```
+Fix the ruff linting issues in tests/test_segmentation.py
+```
+
+**Verify**: All commands pass without errors, coverage >80%
+
+---
+
+### Step 7: Code Review (10 min)
+
+**What you'll do**: Get automated code review and address feedback
+
+**Prompt to use**:
+```
+Review the customer segmentation implementation for code quality.
+
+Files to review:
+- src/analysis/segmentation.py
+- tests/test_segmentation.py
+- src/analysis/viz.py (new functions only)
+
+Check for:
+- Type safety and error handling
+- Code quality and Python best practices
+- Test coverage and edge cases
+- Documentation completeness
+
+Provide categorized feedback (critical/important/minor) and suggest improvements.
+```
+
+**What happens**:
+- Claude analyzes your code against project guidelines
+- Provides specific, actionable feedback
+- You address critical/important issues
+
+**Example fixes to request**:
+```
+Address the critical issues from the code review
+```
+
+**Verify**: Review feedback makes sense, critical issues fixed
+
+---
+
+### Step 8: Documentation (10 min)
+
+**What you'll do**: Create user-facing documentation
+
+**Prompt to use**:
+```
+Create docs/customer-segmentation.md documenting the customer segmentation feature.
+
+Include:
+- Overview: what is customer segmentation, RFM methodology
+- Installation: dependencies needed (already in pyproject.toml)
+- Usage: code examples for calculate_rfm(), segment_customers()
+- Visualization: examples of plot functions
+- Interpretation: how to understand segment results
+- API Reference: all functions with parameters and returns
+
+Use the notebook as a source of working examples.
+```
+
+**What happens**:
+- Creates `docs/customer-segmentation.md`
+- Includes working code examples from your implementation
+
+**Verify**: Doc file exists and is readable
+
+---
+
+### Step 9: Update Task Docs (5 min)
+
+**What you'll do**: Update the dev-docs before committing
+
+**Prompt to use**:
+```
+Update the customer-segmentation dev-docs to reflect completion.
+
+In .claude/dev/active/customer-segmentation/:
+- Update context.md with final implementation decisions
+- Mark completed tasks in tasks.md
+- Note: "Feature complete, ready for PR" in plan.md
+```
+
+**Verify**: Task files updated with current status
+
+---
+
+### Step 10: Final Integration Test (5 min)
+
+**What you'll do**: Verify everything works together
+
+**Commands to run**:
+```bash
+# Run all tests
+uv run pytest
+
+# Type check everything
 uv run mypy src/
+
+# Lint everything
 uv run ruff check .
-uv run pytest --cov=src
+
+# Try the notebook
+uv run jupyter lab notebooks/02_customer_segmentation.ipynb
+# (Run all cells, verify no errors)
 ```
 
-**Step 7: Commit**
+**Verify**: All checks pass, notebook runs end-to-end
+
+---
+
+### Step 11: Commit and Prepare PR
+
+**What you'll do**: Create a clean commit ready for review
+
+**Commands to run**:
 ```bash
-git add .
-git commit -m "feat(validation): add CSV schema validation"
-```
+# Clear notebook outputs
+jupyter nbconvert --clear-output --inplace notebooks/02_customer_segmentation.ipynb
 
-**Total time**: ~75 minutes for a production-ready feature with tests and docs!
+# Stage changes
+git add src/analysis/segmentation.py
+git add src/analysis/viz.py
+git add tests/test_segmentation.py
+git add notebooks/02_customer_segmentation.ipynb
+git add docs/customer-segmentation.md
+git add .claude/dev/active/customer-segmentation/
 
----
+# Commit with conventional message
+git commit -m "feat(segmentation): add customer segmentation with RFM analysis
 
-### 8. **Trigger Skill Activation with Keywords**
+- Add segmentation.py with RFM calculation and customer grouping
+- Extend viz.py with segment distribution and RFM scatter plots
+- Add comprehensive pytest tests with 85% coverage
+- Create exploration notebook with examples
+- Document feature in docs/customer-segmentation.md
 
-Test skill activation rules by using Python-specific keywords.
+Implements customer segmentation using RFM (Recency, Frequency, Monetary)
+methodology to group customers into High Value, Regular, At Risk, and Lost
+segments for targeted marketing strategies."
 
-**Try these prompts**:
-
-**Data-related**:
-```
-"How do I load a parquet file with pandas?"
-"What's the best way to handle duplicate rows in a DataFrame?"
-"Show me how to merge two datasets on a common key"
-```
-
-**Testing**:
-```
-"Write pytest tests for a function that processes time series data"
-"How do I mock pandas read_csv in my tests?"
-"What fixtures should I create for testing visualization functions?"
-```
-
-**Type hints**:
-```
-"Add proper type hints to a function that returns a tuple of DataFrames"
-"How do I annotate a function that takes variable keyword arguments?"
-```
-
-**Jupyter**:
-```
-"What's the recommended way to organize a data exploration notebook?"
-"Should I commit notebook outputs to git?"
-"How do I convert a notebook to a Python script?"
-```
-
-Each prompt should trigger the `project-guidelines` skill with relevant guidance!
-
----
-
-### 9. **Test File Pattern Triggers**
-
-Skills activate based on file patterns too. Try editing these files:
-
-**Edit a Python module**:
-```
-Edit src/analysis/data.py
-→ Skill activates with Python best practices
-```
-
-**Edit a test file**:
-```
-Edit tests/test_data.py
-→ Skill activates with pytest guidance
-```
-
-**Edit a Jupyter notebook**:
-```
-Edit notebooks/01_example_analysis.ipynb
-→ Skill activates with notebook hygiene tips
-```
-
-**Edit pyproject.toml**:
-```
-Edit pyproject.toml
-→ Skill activates with dependency management guidance
+# Push to feature branch (optional)
+git push origin feature/customer-segmentation
 ```
 
 ---
 
-### 10. **Progressive Disclosure: Dive Deeper**
+## ✅ What You Built
 
-The skill uses progressive disclosure - main guidance is ~500 lines, with detailed resources.
+After completing all steps, you have:
 
-**Try exploring resources**:
-
-**In your prompts, reference**:
-```
-"Check the testing.md resource for pytest patterns"
-"What does structure.md say about organizing Python modules?"
-"Show me the security.md guidelines for handling API keys in Python"
-```
-
-The skill will use those resource files to provide deeper guidance!
+- ✅ **Core module** (`segmentation.py`) with type-safe RFM analysis
+- ✅ **Visualization functions** for exploring segments
+- ✅ **Comprehensive tests** with 85%+ coverage
+- ✅ **Working Jupyter notebook** demonstrating the feature
+- ✅ **Complete documentation** for users
+- ✅ **Quality-checked code** (mypy, ruff, pytest all passing)
+- ✅ **PR-ready commit** with conventional commit message
+- ✅ **Persistent task docs** surviving context resets
 
 ---
 
-## 🎯 Success Indicators
+## 🎓 What You Learned
 
-You'll know the setup is working when:
+Throughout this workflow, you experienced:
 
-- ✅ Skills activate automatically with relevant keywords
-- ✅ Hooks suggest quality checks after editing Python files
-- ✅ Agents create structured plans and reviews
-- ✅ `/dev-docs` creates persistent task documentation
-- ✅ Code follows Python best practices (type hints, docstrings)
-- ✅ Tests pass with good coverage
-- ✅ Quality checks (mypy, ruff, pytest) pass
+1. **Skill Auto-Activation**: Skills activated automatically when you mentioned "segmentation", "pandas", "pytest"
+2. **Hook Automation**: Post-tool-use hook tracked your edits and suggested quality checks
+3. **Dev-Docs Pattern**: Created persistent documentation in `.claude/dev/active/`
+4. **Progressive Disclosure**: Skills provided just enough guidance, linking to detailed resources
+5. **Quality Integration**: mypy, ruff, pytest all integrated into development flow
+6. **Code Review**: Got expert feedback without needing a human reviewer
+7. **End-to-End Flow**: Went from idea to PR-ready feature in 90 minutes
+
+---
+
+## 🚀 Try Other Scenarios
+
+Now that you understand the flow, try these variations:
+
+### Quick Feature (30 min)
+```
+Add a simple outlier detection function to src/analysis/utils.py with tests
+```
+
+### Notebook-First Exploration (45 min)
+```
+Create a notebook exploring correlation between purchase categories, then extract reusable functions to src/
+```
+
+### Fix a Bug (15 min)
+```
+The clean_data function doesn't handle duplicate indices correctly. Fix it, add a test, and commit.
+```
+
+### Extend Existing Feature (60 min)
+```
+Add time-series support to the segmentation module: track how customers move between segments over time
+```
+
+Each follows the same pattern: plan → implement → test → quality check → document → commit
 
 ---
 
