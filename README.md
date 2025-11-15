@@ -20,6 +20,20 @@ This template is **intentionally generic** with `TODO:` placeholders throughout.
 
 ---
 
+## 📚 See It In Action
+
+**Want to see a complete example?** Check out `.claude-example/` for a fully customized version using:
+- **Python 3.12+** with **uv** (fast package manager)
+- **Jupyter notebooks** for data analysis
+- **pytest, mypy, ruff** for quality checks
+- All TODOs filled in with Python-specific values
+
+[View the Python/Jupyter example →](.claude-example/README.md)
+
+This example demonstrates exactly how to transform this generic template into a production-ready project for your stack.
+
+---
+
 ## Tech Stack
 
 **Language**: TODO: <primary-language> (e.g., TypeScript, Python, Rust, Go)
@@ -64,6 +78,8 @@ TODO: <install-command>
 # Find all TODOs in the project
 grep -r "TODO:" .claude/ README.md src/ docs/
 ```
+
+**💡 Tip**: See `.claude-example/` for a complete Python/Jupyter example showing all customizations filled in.
 
 ### 3. Install Hook Dependencies
 
