@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+  "description": "Skill activation triggers for Python/uv/Jupyter project",
+  "skills": {
+    "project-guidelines": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Python development guidelines for uv and Jupyter notebooks",
+      "promptTriggers": {
+        "keywords": [
+          "plan",
+          "architecture",
+          "guidelines",
+          "release",
+          "testing",
+          "docs",
+          "documentation",
+          "python",
+          "jupyter",
+          "notebook",
+          "pandas",
+          "dataframe",
+          "analysis",
+          "visualization",
+          "data",
+          "uv",
+          "pytest",
+          "mypy",
+          "ruff",
+          "type hint",
+          "import",
+          "module",
+          "package"
+        ],
+        "intentPatterns": [
+          "(create|add|implement|build).*?(function|class|module|notebook|analysis)",
+          "(how to|best practice).*?(python|jupyter|pandas|test|type)",
+          "(plan|design|architect).*?(feature|pipeline|analysis)",
+          "(write|update|create).*?(documentation|docstring|readme)",
+          "(setup|configure).*?(environment|dependencies|uv|jupyter)",
+          "(test|debug|fix).*?(function|module|notebook|data)",
+          "(load|process|analyze|visualize).*?data"
+        ]
+      },
+      "fileTriggers": {
+        "pathPatterns": [
+          "src/**/*.py",
+          "tests/**/*.py",
+          "notebooks/**/*.ipynb",
+          "*.ipynb",
+          "pyproject.toml",
+          ".python-version",
+          "docs/**/*.md",
+          ".claude/commands/**/*",
+          ".claude/agents/**/*",
+          ".claude/skills/**/*"
+        ],
+        "pathExclusions": [
+          "**/__pycache__/**",
+          "**/*.pyc",
+          "**/.venv/**",
+          "**/.ipynb_checkpoints/**",
+          "**/uv.lock"
+        ],
+        "contentPatterns": [
+          "import pandas",
+          "import numpy",
+          "import matplotlib",
+          "import seaborn",
+          "from typing import",
+          "def .*\\(.*\\).*->",
+          "class .*:",
+          "@pytest\\.",
+          "pd\\.DataFrame",
+          "plt\\.",
+          "sns\\."
+        ]
+      }
+    }
+  },
+  "notes": {
+    "customization": "This configuration is tailored for Python projects using uv, Jupyter notebooks, pandas, and common data science libraries. Triggers activate on Python files, notebooks, and data-related keywords."
+  }
+}

@@ -1,0 +1,63 @@
+# Build artifacts
+build/
+dist/
+out/
+target/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+
+# Dependencies
+node_modules/
+vendor/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+secrets/
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+_showcase/
+
+# Test coverage
+coverage/
+.nyc_output/
+htmlcov/
+.coverage
+
+# Cache
+.cache/
+.eslintcache
+.tsbuildinfo
+*.cache
+.claude/tsc-cache/
