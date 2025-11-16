@@ -61,3 +61,6 @@ htmlcov/
 .tsbuildinfo
 *.cache
 .claude/tsc-cache/
+
+# Claude handoffs (session-specific)
+.claude/handoffs/
